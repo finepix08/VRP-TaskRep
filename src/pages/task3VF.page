@@ -1,0 +1,106 @@
+<apex:page controller="ContactTask3" cache="false" >
+    <apex:form id="main-form">
+        <apex:pageBlock title="Contacts" id="myPanel">
+            <p style="margin: 0 10px 10px 0; display:inline-block">
+                <apex:outputLabel value="Filter"/>
+            </p>
+            <apex:selectList value="{!setcon.filterId}" size="1" styleclass="form-control">
+                <apex:actionSupport event="onchange" reRender="data-table" />
+                <apex:selectOptions value="{!setcon.listViewOptions}"/>
+            </apex:selectList>
+            <apex:pageBlockTable value="{!contacts}" var="item" id="data-table">
+                <apex:column >
+                    <apex:commandLink value="edit" action="{!doEdit}">
+                        <apex:param name='updatedContact' value="{!item.id}" assignTo="{!updatedContactId}"/>
+                    </apex:commandLink>
+                </apex:column>
+                <apex:column>
+                    <apex:commandLink value="delete" action="{!doDelete}" reRender="main-form">
+                        <apex:param name="itemId" value="{!item.id}" assignTo="{!itemId}"/>
+                    </apex:commandLink>
+                </apex:column>
+                <apex:column value="{!item.LastName}">
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!ViewData}" value="LastName{!IF(sortExpression=='LastName',IF(sortDirection='ASC','▼','▲'),'')}">
+                            <apex:param value="LastName" name="column" assignTo="{!sortExpression}" ></apex:param>
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+
+                <apex:column>
+                    <apex:inputField  value="{!item.Title}" />
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!ViewData}" value="Title{!IF(sortExpression=='Title',IF(sortDirection='ASC','▼','▲'),'')}">
+                            <apex:param value="Title" name="column" assignTo="{!sortExpression}" ></apex:param>
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+
+                <apex:column value="{!item.Account.Name}">
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!ViewData}" value="Account Name{!IF(sortExpression=='Account.Name',IF(sortDirection='ASC','▼','▲'),'')}">
+                            <apex:param value="Account.Name" name="column" assignTo="{!sortExpression}" ></apex:param>
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+                <apex:column>
+                    <apex:outputLabel id="label">
+                        <apex:inputField value="{!item.Phone}" />
+                    </apex:outputLabel>
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!ViewData}" value="Phone{!IF(sortExpression=='Phone',IF(sortDirection='ASC','▼','▲'),'')}">
+                            <apex:param value="Phone" name="column" assignTo="{!sortExpression}" ></apex:param>
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+
+
+
+
+
+
+                <apex:column>
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!ViewData}" value="Email{!IF(sortExpression=='Email',IF(sortDirection='ASC','▼','▲'),'')}">
+                            <apex:param value="Email" name="column" assignTo="{!sortExpression}" ></apex:param>
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+
+
+                <apex:column value="{!item.MobilePhone}">
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!ViewData}" value="MobilePhone{!IF(sortExpression=='MobilePhone',IF(sortDirection='ASC','▼','▲'),'')}">
+                            <apex:param value="MobilePhone" name="column" assignTo="{!sortExpression}" ></apex:param>
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+
+
+                <apex:column value="{!item.Owner.Name}">
+                    <apex:facet name="header">
+                        <apex:commandLink action="{!ViewData}" value="Owner Name{!IF(sortExpression=='Owner.Name',IF(sortDirection='ASC','▼','▲'),'')}">
+                            <apex:param value="Owner.Name" name="column" assignTo="{!sortExpression}" ></apex:param>
+                        </apex:commandLink>
+                    </apex:facet>
+                </apex:column>
+
+            </apex:pageBlockTable>
+
+            
+            <apex:outputLabel style="margin-top:10px" id="panel">Records Limit</apex:outputLabel>
+            <apex:inputText value="{!list_size}" >
+                <apex:actionSupport event="onChange" reRender="myPanel" action="{!getContacts}"/>
+            </apex:inputText> 
+            
+            <apex:pageBlockButtons location="bottom" >
+				<apex:outputPanel id="myButtons">
+						<apex:commandButton action="{!setcon.first}" title="First Page”" value="<<"  reRender="myPanel"/>
+                        <apex:commandButton action="{!setcon.previous}" title="Previous" value="<"  reRender="myPanel"/>
+                        <apex:commandButton action="{!setcon.next}" title="Next" value='>'  reRender='myPanel'/>
+                        <apex:commandButton action="{!setcon.last}" title="Last Page" value='>>' reRender='myPanel'/>
+				</apex:outputPanel>
+			</apex:pageBlockButtons>      
+        </apex:pageBlock>
+ 	</apex:form>
+</apex:page>

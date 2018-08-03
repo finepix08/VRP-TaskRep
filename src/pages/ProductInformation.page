@@ -1,0 +1,109 @@
+<apex:page controller="ProductInformationController" lightningStylesheets="true" sidebar="false" docType="html-5.0">
+    <apex:slds />
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+	</script>
+
+    <apex:form >
+        <div class="slds-page-header__title; slds-theme_shade slds-p-around_large">
+             <div style="text-align: center; font-size: 30px;
+                font-weight: 500; color: #000080; display: inline-block; width: 50%">
+                Contact Information
+            </div>
+            <div style="margin: -10px; font-size: 30px; width: 50%;
+                font-weight: 500; color: #000080; display: inline-block; text-align: center">
+                Product Information
+            </div>
+        </div>
+        <div style = "display:inline-block; width: 48%; text-align: center; position: relative; top: -60px">
+            <label for="input#1" style ="font-family: 'Helvetica Neue', sans-serif;
+                   font-size: 20px; font-weight: 200; letter-spacing: -1px; line-height: 1;
+                   color: #000080; display: inline-block; margin: 0 20px 20px 20px" >
+                Email
+            </label>
+            <apex:inputField value="{!cont.Email}" style="align: center;
+                   width: 60%; margin-left: 40px;" styleClass="slds-input" />
+            <br/>
+            <label style ="font-family: 'Helvetica Neue', sans-serif;
+                    font-size: 20px; font-weight: 200; letter-spacing: -1px; line-height: 1;
+                    color: #000080; display: inline-block; margin: 20px; white-space: nowrap;" >
+                First Name
+            </label>
+            <apex:inputField value="{!cont.FirstName}" style="align: center;
+                   width: 60% " styleClass="slds-input"/>
+             <br/>       
+            <label style ="font-family: 'Helvetica Neue', sans-serif;
+                   font-size: 20px; font-weight: 200; letter-spacing: -1px; line-height: 1;
+                   color: #000080; display: inline-block; margin: 20px 0 0 15%; float:left;">
+                Last Name
+            </label>
+            <apex:inputField value="{!cont.LastName}" style="align: center; width: 60%; float:left; margin: 15px 0 0 20px"
+                   styleClass="slds-input" />
+        </div>
+
+        
+        <apex:outputPanel id="refresh">
+            <div style = "display: inline-block; width: 50%;">
+                <p style = "font-family: 'Helvetica Neue', sans-serif;
+                            font-size: 20px; font-weight: 200; letter-spacing: -1px; line-height: 1;
+                            color: #000080; padding: 0 5px 5px 0; display: inline-block; margin-top: 20px">
+                    Product Name:
+                </p>
+                <p style = "font-family: 'Helvetica Neue', sans-serif;
+                            font-size: 20px; font-weight: 200; letter-spacing: -1px; line-height: 1;
+                            color: black; padding-bottom: 20px; display: inline-block;">
+                    {!contProdList.NAME}
+                </p>
+                <br/> 
+                <p style = "font-family: 'Helvetica Neue', sans-serif;
+                            font-size: 20px; font-weight: 200; letter-spacing: -1px; line-height: 1;
+                            color: #000080; padding: 0 5px 5px 0; display: inline-block;">
+                    Cost:
+                </p>
+                <p style = "font-family: 'Helvetica Neue', sans-serif;
+                            font-size: 20px; font-weight: 200; letter-spacing: -1px; line-height: 1;
+                            color: black; padding-bottom: 20px; display: inline-block;">
+                    {!contProdList.Unit_Price__c}
+                </p>
+                <br/>
+                <label style ="font-family: 'Helvetica Neue', sans-serif;
+                               font-size: 20px; font-weight: 200; letter-spacing: -1px; line-height: 1;
+                               color: #000080; display: inline-block; margin-right: 10px; white-space: nowrap;" >
+                    Unit Count
+                </label>
+                <apex:inputText styleClass="slds-input" value="{!quantity}" style="align: center; width: 60%; margin-right: 10px"/>
+                <apex:commandButton styleClass="slds-button slds-button_outline-brand" value="Count" action="{!countAmount}" rerender="refresh"/>
+                <br/>
+                <p style = "font-family: 'Helvetica Neue', sans-serif;
+                            font-size: 20px; font-weight: 200; letter-spacing: -1px; line-height: 1;
+                            color: #000080; padding: 0 5px 5px 0; display: inline-block; margin-top: 20px">
+                    Total Amount: 
+                </p>
+                <p style = "font-family: 'Helvetica Neue', sans-serif;
+                            font-size: 20px; font-weight: 200; letter-spacing: -1px; line-height: 1;
+                            color: black; padding-bottom: 20px; display: inline-block;">
+                    {!totalAmount}
+                </p>
+            </div>
+            <p style = "color:red; text-align: center">
+                {!messageError}
+       		</p>
+            <p style = "font-size: 30px; color: green; text-align: center">
+            	{!messageSuccess}
+        	</p>
+        </apex:outputPanel>
+
+            <div class="slds-page-header__title slds-align_absolute-center
+                slds-theme_shade slds-p-around_large" style = "width: 100%">
+                <div class="slds-text-align_center" style = "margin: 10px">
+                     <apex:commandButton styleClass="slds-button slds-button_outline-brand" immediate="true"  action="/apex/ProductTable" value="To Shopping"/>
+                </div>
+                <div class="slds-text-align_center">
+                	<apex:commandButton styleClass="slds-button slds-button_brand"  action="{!buy}" value="Buy"/>
+                </div>
+            </div>
+ 
+    </apex:form>
+</apex:page>

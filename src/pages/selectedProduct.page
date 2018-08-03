@@ -1,0 +1,61 @@
+<apex:page controller="selectedProductController" lightningStylesheets="true" sidebar="false" showHeader="true">
+<apex:slds />
+    <apex:form >
+        <div class="slds-page-header__title slds-align_absolute-center
+         	slds-theme_shade slds-p-around_large" style="margin: -10px; font-size: 30px;
+            font-weight: 500; color: #000080;">
+            {!prodSelectedList.Name}
+        </div>
+        <div style = "margin: 20px; display: inline-block; width: 45%; float: left;">
+            <apex:image url="{!prodSelectedList.Image_Url__c}" style="height: 400px; display: block;
+					margin-left: auto; margin-right: auto;"/>
+        </div>
+        <div style = "margin: 20px; display: inline-block; width: 45%; float: left" >
+            <div>
+                <p style = "font-family: 'Helvetica Neue', sans-serif;
+                   font-size: 20px; font-weight: 200; letter-spacing: -1px; line-height: 1;
+                   color: #000080; padding-bottom: 5px">
+                    AMOUNT:
+                </p>
+                <p style = "font-family: 'Helvetica Neue', sans-serif;
+                   font-size: 20px; font-weight: 200; letter-spacing: -1px; line-height: 1;
+                   color: black; padding-bottom: 25px">
+                   {!prodSelectedList.Units_Available__c}
+                </p>
+            </div>
+            <div>
+                <p style = "font-family: 'Helvetica Neue', sans-serif;
+                   font-size: 20px; font-weight: 200; letter-spacing: -1px; line-height: 1;
+                   color: #000080; padding-bottom: 5px">
+                    TITLE:
+                </p>
+                <p style = "color: #4c4a37; font-family: 'Source Sans Pro', sans-serif;
+                   font-size: 16px; font-weight: 400; padding-bottom: 25px">
+                   {!prodSelectedList.Title__c}
+                </p>
+            </div>
+            <div>
+                <p style = "font-family: 'Helvetica Neue', sans-serif;
+                   font-size: 20px; font-weight: 200; letter-spacing: -1px; line-height: 1;
+                   color: #000080; padding-bottom: 5px">
+                    DESCRIPTION:
+                </p> 
+                <p style = "font-family: 'Source Sans Pro', sans-serif;
+                   font-size: 16px; font-weight: 400">
+                   {!prodSelectedList.Product_Description__c}
+                </p>
+            </div>
+        </div>
+        <div class="slds-page-header__title slds-align_absolute-center
+         	slds-theme_shade slds-p-around_large" style = "width: 100%">
+            <div class="slds-text-align_center" style = "margin: 10px">
+                <apex:commandButton styleClass="slds-button slds-button_outline-brand"  action="/apex/ProductTable" value="To Shopping"/>
+            </div>
+            <div class="slds-text-align_center">
+                <apex:outputLink value="/apex/ProductInformation?id={!prodSelectedList.Id}"> 
+                     <apex:commandButton styleClass="slds-button slds-button_brand"  action="/apex/ProductInformation?id={!prodSelectedList.Id}" value="Buy"/>
+               </apex:outputLink> 
+            </div>
+        </div>
+    </apex:form>
+</apex:page>

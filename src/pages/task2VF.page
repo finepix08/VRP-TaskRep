@@ -1,0 +1,18 @@
+<apex:page standardController="Contact" recordSetVar="contacts">
+    <apex:form >
+        <apex:pageBlock title="Contacts">
+            <apex:pageBlockTable value="{!contacts}" var="item">
+                <apex:column value="{!item.name}"/>
+                <apex:column value="{!item.title}"/>
+                <apex:column value="{!item.Account.Name}"/>
+                <apex:column value="{!item.Phone}"/>
+                <apex:column value="{!item.Email}"/>
+                <apex:column value="{!item.MobilePhone}"/>
+                <apex:column value="{!item.Owner.Name}"/>
+            </apex:pageBlockTable>
+            
+            <apex:commandLink action="{!previous}"> Previous </apex:commandlink>
+            <apex:commandLink action="{!next}"> Next </apex:commandlink>
+       </apex:pageBlock>
+ 	</apex:form>
+</apex:page>

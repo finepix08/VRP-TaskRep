@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObjectTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseValues>
+        <plural>false</plural>
+        <value>Product Table</value>
+    </caseValues>
+    <caseValues>
+        <plural>true</plural>
+        <value>Product Tables</value>
+    </caseValues>
+    <fields>
+        <label><!-- Added Date --></label>
+        <name>Added_Date__c</name>
+    </fields>
+    <fields>
+        <label><!-- Image Url --></label>
+        <name>Image_Url__c</name>
+    </fields>
+    <fields>
+        <label><!-- Product Description --></label>
+        <name>Product_Description__c</name>
+    </fields>
+    <fields>
+        <label><!-- Title --></label>
+        <name>Title__c</name>
+    </fields>
+    <fields>
+        <label><!-- Unit Price --></label>
+        <name>Unit_Price__c</name>
+    </fields>
+    <fields>
+        <label><!-- Units Available --></label>
+        <name>Units_Available__c</name>
+    </fields>
+    <fields>
+        <label><!-- Warehouse --></label>
+        <name>Warehouse__c</name>
+        <relationshipLabel><!-- Product Tables --></relationshipLabel>
+    </fields>
+    <startsWith>Consonant</startsWith>
+    <validationRules>
+        <errorMessage><!-- Unit Price is incorrert --></errorMessage>
+        <name>Creating_Product_UnitPrice_Below_0</name>
+    </validationRules>
+</CustomObjectTranslation>

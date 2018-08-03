@@ -1,0 +1,22 @@
+<apex:page controller="PencilController">
+<apex:form >
+    <apex:pageBlock title="Edit Page">
+        <apex:pageBlockSection >
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel style="float:left" value="Enter Pensil Box name"></apex:outputLabel>
+                <apex:outputPanel layout="block">
+                    <apex:inputText value="{!Box[0].Name}"/>
+                    <apex:commandButton value="Update Name" action="{!UpdateMe}"/>
+                 </apex:outputPanel>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        <apex:pageBlockTable value="{!Pencil}" var="pensils" >
+            <apex:column headerValue="Pencil Color" value="{!pensils.Name}"/>
+            <apex:column headerValue="Box Name" value="{!Box[0].Name}"/>
+            <apex:column headerValue="Created Date" value="{!pensils.Createddate}"/>
+            <apex:column value="{!pensils.OwnerId}"/>
+             
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

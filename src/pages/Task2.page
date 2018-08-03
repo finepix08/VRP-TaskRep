@@ -1,0 +1,39 @@
+<apex:page standardController="Participation__c" extensions="Participation" recordSetVar="participations">
+<apex:form >
+    <apex:pageBlock title="Final Evaluation">
+        <apex:outputLabel value="Cources" for="Cources"></apex:outputLabel>
+         <apex:selectList id="Cources" value="{!SelectedCource}" title="Cource" size="1">
+             <apex:selectOptions value="{!accts}" />
+             <apex:actionSupport event="onchange" rerender="FirstStudents" action="{!getDetails}"/>
+          </apex:selectList>
+         
+         <apex:PageBlockSection id="FirstStudents">
+             <apex:pageBlockTable style="margin-top: 20px" value="{!participant2}" var="part" columnsWidth="200px,200px,200px">
+                <apex:facet name="header">To be evaluated</apex:facet>
+                <apex:column headerValue="Name" value="{!part.Student__r.Name}"/>
+                <apex:column headerValue="Grade">
+                    <apex:selectList id="Grades" value="{!matchGradeId}" title="Grades" size="1">
+                        <apex:selectOptions value="{!grades}" />
+                    </apex:selectList>
+                </apex:column>
+                <apex:column headerValue="Result" value="{!part.Result__c}"/>
+             </apex:pageBlockTable>
+        
+             <apex:pageBlockTable style="margin-top: 20px" value="{!participant2}" var="part">
+                 <apex:facet name="header">Insufficient attendance</apex:facet>
+                 <apex:column headerValue="Name" value="{!part.Student__r.Name}"/>
+                 <apex:column headerValue="Grade" value="{!part.Grade__c}"/>
+                 <apex:column headerValue="Result" value="{!part.Result__c}"/>
+             </apex:pageBlockTable>
+             <apex:pageBlockTable style="margin-top: 20px" value="{!participant2}" var="part">
+                 <apex:facet name="header">Graded</apex:facet>
+                 <apex:column headerValue="Name" value="{!part.Student__r.Name}"/>
+                 <apex:column headerValue="Grade" value="{!part.Grade__c}"/>
+                 <apex:column headerValue="Result" value="{!part.Result__c}"/>
+             </apex:pageBlockTable>
+         </apex:PageBlockSection>
+        
+    </apex:pageBlock>
+    
+</apex:form>
+</apex:page>

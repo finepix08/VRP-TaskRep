@@ -1,0 +1,39 @@
+<apex:page controller="PruductTableController" lightningStylesheets="true" sidebar="false" showHeader="true">
+    <apex:slds />
+    <div class="slds-scope">
+    <apex:form >
+         <apex:pageBlock title="Product List" id="myPanel">
+            <apex:pageBlockTable value="{!Products}" var="item" id="data-table" >
+                <apex:column headerValue="IMAGE" width="7%">
+                    <div class="slds-m-around_medium">
+                        <apex:image url="{!item.Image_Url__c}"/>
+                    </div>  
+                </apex:column> 
+                <apex:column style="text-align: center" width="10%">
+                    <apex:outputlink target="blank" value="/apex/selectedProduct?id={!item.Id}" >
+                        {!item.Name}
+                    </apex:outputlink>
+                </apex:column>
+                <apex:column value="{!item.Title__c}" headerValue="TITLE" width="30%"/>
+                <apex:column headerValue="DESCRIPTION" width="40%">
+                    <div class="slds-m-around_small">
+                         {!item.Product_Description__c}
+                   		 <a href='/apex/selectedProduct?id={!item.Id}'>...More</a>
+                    </div>
+                </apex:column>
+                <apex:column headerValue="COST" width="5%">
+                	<div class="slds-text-align_center">
+                    	{!item.Unit_Price__c}$
+                    </div>
+                </apex:column>    
+                <apex:column width="8%">
+                    <div class="slds-text-align_center"> 
+                    	<apex:commandButton styleClass="slds-button slds-button_brand"  action="/apex/ProductInformation?id={!item.Id}" value="Buy"/>
+           			</div>
+                </apex:column>
+            </apex:pageBlockTable>
+ 
+        </apex:pageBlock>
+    </apex:form>
+	</div>
+</apex:page>
