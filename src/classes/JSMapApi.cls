@@ -2,6 +2,7 @@ public class JSMapApi {
 	public String contactName { get; set; }
     public static List<Contact> contactList { get; set; }
     public JSMapApi() { } // empty constructor
+    //comments
     
     
     public static List<Contact> getContacts () {
