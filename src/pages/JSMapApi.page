@@ -1,0 +1,30 @@
+<apex:page controller="JSMapApi" id="page">
+    
+    
+    <apex:form id="form" >
+   <script type="text/javascript">
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"/>
+    function getMap() {
+        var name = document.getElementById('page:form:block:blockSection:0:name').value;
+        document.getElementById(myid).style.backgroundColor  = 'yellow';
+        console.log(name);
+        document.getElementById("Map").innerHTML = name;
+    }
+
+    </script> 
+
+    <div id="responseErrors"></div>
+
+    <apex:pageBlock id="block">
+    
+        <apex:pageBlockTable id="blockSection" value="{!Contacts}" var="cont">
+            <apex:column headerValue="Name" id="column" >
+                <apex:inputField value="{!cont.Name}" onClick="getMap()" id="name"/>
+                <apex:commandButton onclick="getMap()" value="Map" />
+            </apex:column>        
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+    
+    <div id="Map"></div>
+        </apex:form>
+</apex:page>
