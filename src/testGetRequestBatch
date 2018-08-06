@@ -1,0 +1,54 @@
+global class TestGetRequestBatch implements Database.Batchable<sObject>, Database.AllowsCallouts {
+
+     global List<User> start(Database.BatchableContext BC) {
+        List<User> userRecords = [SELECT Id, EmployeeNumber,Ulti_Pro_Employee_Id__c FROM User WHERE EmployeeNumber != null]; 
+        system.debug(userRecords);
+        return userRecords; 
+     }
+
+     global void execute(Database.BatchableContext BC, List<User> userRecords) {  
+        system.debug('executeeee');
+        //String login = 'adl.devteam@vrpconsulting.com' ;
+        //String password = 'qwerty123';
+        List<Object> allRecords = new List<Object>();
+        for (integer i = 1; i < 20; i++) {
+            Http http = new Http();
+            HttpRequest request = new HttpRequest();
+            request.setEndpoint('https://service4.ultipro.com/personnel/v1/employee-changes?page=' + i + '&per_page=200');
+            request.setMethod('GET');
+            //String loginPasswordEncoded = EncodingUtil.base64Encode(blob.valueof(login + ':' + password));
+            request.setHeader('Authorization', 'Basic U0FMRVNGT1JDRTpGb3VuZGVkITkxMw==');
+            request.setHeader('us-customer-api-key' , 'TITVA');
+            HttpResponse response = http.send(request);
+            List<Object> results = (List<Object>) JSON.deserializeUntyped(response.getBody());
+            for (Object res: results) {
+                allRecords.add(res);
+            } 	
+        }
+        
+         system.debug(allRecords.size());
+
+     	Map<String, Map<String, Object>> objects = new Map<String, Map<String, Object>> ();
+        for (Object res: allRecords) {
+            Map<String, Object> resMap = (Map<String, Object>)res;
+            if (((string)resMap.get('employeeNumber')).length() < 5) {
+                ((string)resMap.get('employeeNumber')) = '0' + (string)resMap.get('employeeNumber');
+            }
+            objects.put((string)resMap.get('employeeNumber'), resMap );
+        }
+
+		List<User_updateId_event__e> employeeEvent = new List<User_updateId_event__e>();
+            
+        for (User user: userRecords) {
+            if(objects.containskey(user.EmployeeNumber)){
+             	Map<String, Object> resMap = objects.get(user.EmployeeNumber); 
+                employeeEvent.add(new User_updateId_event__e(User_Id__c=(String)resMap.get('employeeId'), employeeNumber__c = (String)resMap.get('employeeNumber')));
+         	}
+        }
+        List<DataBase.SaveResult> saveResult = EventBus.publish(employeeEvent);
+         
+    }   
+
+    global void finish(Database.BatchableContext BC){    
+    }
+}
